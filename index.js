@@ -3,6 +3,11 @@ const serverApp = express();
 
 const PORT = process.env.PORT || 5000;
 
+//routers
+const productRouter = require('./routers/products');
+
+serverApp.use(productRouter);
+
 serverApp.get('/', (req, res) => {
     res.send(`wow`);
 });
