@@ -41,18 +41,22 @@ router.get('/products/:id', (req, res) => {
 });
 
 router.post('/products', (req, res) => {
-    const productsObject = productArrToObj(mockProducts);
-    const id = 100000000 * Math.random();
-    const newProduct = {
+    const product = new Product({
         name: 'something new',
-        price: 100,
-        created: new Date(),
-        imgSrc: "https://via.placeholder.com/250x250"
-    };
-    mockProducts.push(newProduct);
-    res.status(201).json({
-        msg: 'successfully created project'
-    })
+        price: 1000,
+        imgSrc: 'https://via.placeholder.com/250x250'
+    });
+    product.save()
+        .then(response =>{
+            res.status(201).json({
+                msg: 'successfully created project'
+            });
+        })
+        .catch(err => {
+            res.status(500).json({
+                msg: "your stuff is broke."
+            });
+        });
 });
 
 module.exports = router;
